@@ -1,6 +1,6 @@
 {
   "name": "git-suggest",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "A lightweight command-line tool that automatically generates contextual, high-quality Git commit messages based on your staged code changes. Powered by GitHub Copilot CLI, it helps you write smarter commits with less typing.",
   "main": "dist/index.js",
   "bin": {

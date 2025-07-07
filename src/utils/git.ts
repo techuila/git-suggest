@@ -4,7 +4,8 @@ import { GitChange } from '../types';
 export class GitUtils {
   static async getStagedChanges(): Promise<GitChange[]> {
     try {
-      const statusOutput = execSync('git status --porcelain --staged', { 
+      // Use git diff --cached --name-status to get staged files (compatible with older Git versions)
+      const statusOutput = execSync('git diff --cached --name-status', { 
         encoding: 'utf8',
         cwd: process.cwd()
       });
@@ -17,14 +18,17 @@ export class GitUtils {
       const lines = statusOutput.trim().split('\n');
 
       for (const line of lines) {
-        const status = line.substring(0, 2);
-        const file = line.substring(3);
+        const parts = line.split('\t');
+        if (parts.length < 2) continue;
+        
+        const status = parts[0];
+        const file = parts[1];
         
         let changeType: GitChange['status'];
-        if (status.includes('A')) changeType = 'added';
-        else if (status.includes('M')) changeType = 'modified';
-        else if (status.includes('D')) changeType = 'deleted';
-        else if (status.includes('R')) changeType = 'renamed';
+        if (status === 'A') changeType = 'added';
+        else if (status === 'M') changeType = 'modified';
+        else if (status === 'D') changeType = 'deleted';
+        else if (status.startsWith('R')) changeType = 'renamed';
         else changeType = 'modified';
 
         const stats = await this.getFileStats(file, changeType);
