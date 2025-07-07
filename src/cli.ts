@@ -11,7 +11,7 @@ const program = new Command();
 program
   .name('git-suggest')
   .description('Generate contextual Git commit messages powered by GitHub Copilot CLI')
-  .version('1.0.1');
+  .version('1.0.2');
 
 program
   .command('generate')

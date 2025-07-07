@@ -174,6 +174,58 @@ git-suggest generate
 # Output: "docs: update installation instructions"
 ```
 
+## 🔧 Troubleshooting
+
+### Permission Denied Error
+
+If you get a "permission denied" error when running `git-suggest`:
+
+```bash
+# Fix permissions manually
+chmod +x $(which git-suggest)
+
+# Or if installed globally
+sudo chmod +x /usr/local/bin/git-suggest
+```
+
+### Command Not Found
+
+If `git-suggest` command is not found after global installation:
+
+1. **Check if npm global bin is in PATH:**
+   ```bash
+   npm config get prefix
+   echo $PATH
+   ```
+
+2. **Add npm global bin to PATH** (add to your shell config):
+   ```bash
+   export PATH="$(npm config get prefix)/bin:$PATH"
+   ```
+
+3. **Restart your terminal** or source your shell config
+
+### Prerequisites Issues
+
+If you encounter issues with GitHub CLI or Copilot:
+
+```bash
+# Check prerequisites
+git-suggest check
+
+# Manually install GitHub CLI
+# macOS
+brew install gh
+# or
+npm install -g @github/gh
+
+# Install Copilot extension
+gh extension install github/gh-copilot
+
+# Authenticate
+gh auth login
+```
+
 ## 🛠️ Development
 
 ### Building from Source
