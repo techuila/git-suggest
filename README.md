@@ -30,7 +30,8 @@ git-suggest requires:
 
 The installation script will attempt to install missing prerequisites automatically.
 
-### Setup
+
+### 🛠️ Setup
 
 1. **Authenticate with GitHub:**
    ```bash
